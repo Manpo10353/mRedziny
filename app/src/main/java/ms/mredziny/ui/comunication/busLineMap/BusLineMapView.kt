@@ -1,7 +1,5 @@
 package ms.mredziny.ui.comunication.busLineMap
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -11,28 +9,22 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.NavHostController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import ms.mredziny.R
 import ms.mredziny.data.db.Comunication.BusStop
+import ms.mredziny.viewModel.BusLineMapViewModel
 
 @Composable
-fun BusLineMapScreen(navController: NavHostController, viewModel: BusLineMapViewModel,viewPoint: LatLng,zoom: Float){
+fun BusLineMapScreen(navController: NavHostController, viewModel: BusLineMapViewModel, viewPoint: LatLng, zoom: Float){
     LaunchedEffect(Unit) {
         viewModel.getAllBusStops(viewPoint)
     }
@@ -42,7 +34,6 @@ fun BusLineMapScreen(navController: NavHostController, viewModel: BusLineMapView
     val mapView = rememberMapViewWithLifecycle()
     val (showDialog, setShowDialog) = remember { mutableStateOf(false) }
     val (selectedBusStop, setSelectedBusStop) = remember { mutableStateOf<BusStop?>(null) }
-    //val context = LocalContext.current
 
     AndroidView({ mapView }) { mapView ->
         mapView.getMapAsync { googleMap ->

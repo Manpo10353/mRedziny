@@ -1,11 +1,7 @@
-package ms.mredziny.ui.comunication.busLineMap
+package ms.mredziny.viewModel
 
 import android.content.Context
 import android.graphics.Bitmap
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Canvas
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,7 +14,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ms.mredziny.data.db.Comunication.BusStopRepository
-import ms.mredziny.ui.comunication.busSchedule.busStops.BusStopUiState
+import ms.mredziny.ui.comunication.busLineMap.BusLineMapUiState
 import javax.inject.Inject
 
 @HiltViewModel

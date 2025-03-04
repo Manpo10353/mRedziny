@@ -12,13 +12,13 @@ import ms.mredziny.ui.comunication.busSchedule.busStopSchedule.BusStopScheduleVi
 import ms.mredziny.ui.comunication.busSchedule.busStops.BusStopScreen
 import ms.mredziny.ui.MainScreen
 import ms.mredziny.ui.comunication.busLineMap.BusLineMapScreen
-import ms.mredziny.ui.comunication.busLineMap.BusLineMapViewModel
+import ms.mredziny.viewModel.BusLineMapViewModel
 import ms.mredziny.ui.comunication.busSchedule.busFavourite.BusFavouriteScreen
-import ms.mredziny.ui.comunication.busSchedule.busFavourite.BusFavouriteViewModel
-import ms.mredziny.ui.comunication.busSchedule.busStopSchedule.BusStopScheduleViewModel
-import ms.mredziny.ui.comunication.busSchedule.busStops.BusStopViewModel
+import ms.mredziny.viewModel.BusFavouriteViewModel
+import ms.mredziny.viewModel.BusStopScheduleViewModel
+import ms.mredziny.viewModel.BusStopViewModel
 import ms.mredziny.ui.wasteManagment.wasteCollectionSchedule.WasteCollectionScheduleScreen
-import ms.mredziny.ui.wasteManagment.wasteCollectionSchedule.WasteCollectionScheduleViewModel
+import ms.mredziny.viewModel.WasteCollectionScheduleViewModel
 
 @Composable
 fun Navigation() {

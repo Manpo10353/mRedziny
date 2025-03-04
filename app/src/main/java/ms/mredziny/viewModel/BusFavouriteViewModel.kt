@@ -1,4 +1,4 @@
-package ms.mredziny.ui.comunication.busSchedule.busFavourite
+package ms.mredziny.viewModel
 
 import android.location.Location
 import androidx.lifecycle.ViewModel
@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ms.mredziny.data.db.Comunication.BusStopRepository
+import ms.mredziny.ui.comunication.busSchedule.busFavourite.BusFavouriteUiState
 import ms.mredziny.ui.comunication.busSchedule.busStops.FetchedBusStop
 import javax.inject.Inject
 

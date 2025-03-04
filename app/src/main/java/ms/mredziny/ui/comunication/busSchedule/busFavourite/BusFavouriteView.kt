@@ -1,6 +1,5 @@
 package ms.mredziny.ui.comunication.busSchedule.busFavourite
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -15,8 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -41,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import ms.mredziny.ui.comunication.busSchedule.busStops.FetchedBusStop
 import ms.mredziny.ui.comunication.busSchedule.busStops.TransportTypesIcons
+import ms.mredziny.viewModel.BusFavouriteViewModel
 
 @Composable
 fun BusFavouriteScreen(navController: NavHostController, viewModel: BusFavouriteViewModel, direction: String) {

@@ -1,15 +1,16 @@
-package ms.mredziny.ui.comunication.busSchedule.busStopSchedule
+package ms.mredziny.viewModel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ms.mredziny.data.db.Comunication.BusStopRepository
+import ms.mredziny.ui.comunication.busSchedule.busStopSchedule.BusStopScheduleUiState
+import java.time.DayOfWeek
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -26,8 +27,8 @@ class BusStopScheduleViewModel @Inject constructor(
         val currentMonthValue = currentDate.month.value
 
         return when (currentDayOfWeek) {
-            java.time.DayOfWeek.SATURDAY -> 2// "Sobota"
-            java.time.DayOfWeek.SUNDAY -> 3//"Niedziele i święta" //dodać rozróżnianie świąt jakoś z listy
+            DayOfWeek.SATURDAY -> 2// "Sobota"
+            DayOfWeek.SUNDAY -> 3//"Niedziele i święta" //dodać rozróżnianie świąt jakoś z listy
             else -> {
                 when (currentMonthValue) {
                     in 7..8 -> 4//"Roboczy wakacyjny"

@@ -1,4 +1,4 @@
-package ms.mredziny.ui.wasteManagment.wasteCollectionSchedule
+package ms.mredziny.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +10,8 @@ import kotlinx.coroutines.launch
 import ms.mredziny.data.db.WasteManagment.Date
 import ms.mredziny.data.db.WasteManagment.Place
 import ms.mredziny.data.db.WasteManagment.WasteCollectionScheduleRepository
+import ms.mredziny.ui.wasteManagment.wasteCollectionSchedule.FetchedStreet
+import ms.mredziny.ui.wasteManagment.wasteCollectionSchedule.WasteCollectionScheduleUiState
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -23,7 +25,8 @@ class WasteCollectionScheduleViewModel @Inject constructor(
     private val month = current.month.toString()
     private val year = current.year
 
-    private val _uiState = MutableStateFlow<WasteCollectionScheduleUiState>(WasteCollectionScheduleUiState.Idle())
+    private val _uiState = MutableStateFlow<WasteCollectionScheduleUiState>(
+        WasteCollectionScheduleUiState.Idle())
     val uiState: StateFlow<WasteCollectionScheduleUiState> = _uiState.asStateFlow()
 
     init {
@@ -80,7 +83,7 @@ class WasteCollectionScheduleViewModel @Inject constructor(
                 currentState.streetsList,
                 currentState.dateList,
                 it,
-                FetchedStreet(id=0,name = ""),
+                FetchedStreet(id = 0, name = ""),
                 currentState.date
             )
 
@@ -90,7 +93,7 @@ class WasteCollectionScheduleViewModel @Inject constructor(
                 currentState.streetsList,
                 currentState.dateList,
                 it,
-                FetchedStreet(id=0,name = ""),
+                FetchedStreet(id = 0, name = ""),
                 currentState.date
             )
 
@@ -99,7 +102,7 @@ class WasteCollectionScheduleViewModel @Inject constructor(
                 currentState.streetsList,
                 currentState.dateList,
                 it,
-                FetchedStreet(id=0,name = ""),
+                FetchedStreet(id = 0, name = ""),
                 currentState.date
             )
 
@@ -108,7 +111,7 @@ class WasteCollectionScheduleViewModel @Inject constructor(
                 currentState.streetsList,
                 currentState.dateList,
                 it,
-                FetchedStreet(id=0,name = ""),
+                FetchedStreet(id = 0, name = ""),
                 currentState.date
             )
 

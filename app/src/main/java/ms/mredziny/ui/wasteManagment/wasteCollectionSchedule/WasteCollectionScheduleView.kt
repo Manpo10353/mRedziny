@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import ms.mredziny.data.db.WasteManagment.Date
 import ms.mredziny.data.db.WasteManagment.Place
+import ms.mredziny.viewModel.WasteCollectionScheduleViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -368,7 +369,7 @@ fun WasteCollectionCalendar(wasteCollectionSchedule: FetchedWasteCollectionSched
 
 
 @Composable
-fun DataPickerButton(viewModel: WasteCollectionScheduleViewModel,uiState: WasteCollectionScheduleUiState, date: Date) {
+fun DataPickerButton(viewModel: WasteCollectionScheduleViewModel, uiState: WasteCollectionScheduleUiState, date: Date) {
     val isMonthYear = when (uiState) {
         is WasteCollectionScheduleUiState.Idle -> uiState.date.month == date.month && uiState.date.year == date.year
         is WasteCollectionScheduleUiState.PickedPlace -> uiState.date.month == date.month && uiState.date.year == date.year
