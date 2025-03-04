@@ -1,13 +1,14 @@
 import org.gradle.kotlin.dsl.android
+import org.gradle.kotlin.dsl.ksp
 
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -17,6 +18,7 @@ android {
     defaultConfig {
         applicationId = "ms.mredziny"
         minSdk = 24
+        //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -78,8 +80,8 @@ dependencies {
     implementation(libs.jackson.databind)
     implementation(libs.google.services)
 
-    kapt(libs.androidx.room.compiler)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.androidx.room.compiler)
+    ksp(libs.hilt.android.compiler)
 
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -100,8 +102,4 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-}
-
-kapt {
-    correctErrorTypes = true
 }
