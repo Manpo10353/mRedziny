@@ -1,4 +1,4 @@
-package ms.mredziny.data.db.Comunication
+package ms.mredziny.data.db.Communication
 
 enum class TransportType {
     GZK,

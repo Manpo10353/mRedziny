@@ -5,19 +5,18 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.google.android.gms.maps.model.LatLng
-import ms.mredziny.data.db.Comunication.BusLine
-import ms.mredziny.data.db.Comunication.BusStop
-import ms.mredziny.data.db.Comunication.BusStopSchedule
-import ms.mredziny.data.db.Comunication.City
-import ms.mredziny.data.db.Comunication.DayType
-import ms.mredziny.data.db.Comunication.Direction
-import ms.mredziny.data.db.Comunication.Schedule
+import ms.mredziny.data.db.Communication.BusLine
+import ms.mredziny.data.db.Communication.BusStop
+import ms.mredziny.data.db.Communication.BusStopSchedule
+import ms.mredziny.data.db.Communication.City
+import ms.mredziny.data.db.Communication.DayType
+import ms.mredziny.data.db.Communication.Direction
+import ms.mredziny.data.db.Communication.Schedule
 import ms.mredziny.data.db.WasteManagment.Date
 import ms.mredziny.data.db.WasteManagment.Place
 import ms.mredziny.data.db.WasteManagment.Street
 import ms.mredziny.data.db.WasteManagment.WasteCollectionSchedule
 import ms.mredziny.data.db.WasteManagment.WasteSchedule
-import ms.mredziny.ui.wasteManagment.wasteCollectionSchedule.FetchedWasteCollectionSchedule
 
 @Dao
 interface BusStopDao {

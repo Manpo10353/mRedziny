@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ms.mredziny.data.db.Comunication.BusStopRepository
+import ms.mredziny.data.db.Communication.BusStopRepository
 import ms.mredziny.ui.comunication.busSchedule.busStopSchedule.BusStopScheduleUiState
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -69,7 +69,6 @@ class BusStopScheduleViewModel @Inject constructor(
                 busStopId = currentState.busStopId
                 dayType = currentState.dayType
             }
-            else -> return
         }
         _uiState.value = BusStopScheduleUiState.Loading(
             direction = direction,
@@ -113,7 +112,6 @@ class BusStopScheduleViewModel @Inject constructor(
                 busStopId = currentState.busStopId
                 busLine = currentState.busLine
             }
-            else -> return
         }
         _uiState.value = BusStopScheduleUiState.Loading(
             direction = direction,
@@ -177,7 +175,6 @@ class BusStopScheduleViewModel @Inject constructor(
                 dayType = currentState.dayType
                 busLine = currentState.busLine
             }
-            else -> return
         }
             _uiState.value = BusStopScheduleUiState.Loading(
                 direction = direction,

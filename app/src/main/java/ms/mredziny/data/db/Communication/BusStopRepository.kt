@@ -1,4 +1,4 @@
-package ms.mredziny.data.db.Comunication
+package ms.mredziny.data.db.Communication
 
 import com.google.android.gms.maps.model.LatLng
 import ms.mredziny.data.db.BusLineDao

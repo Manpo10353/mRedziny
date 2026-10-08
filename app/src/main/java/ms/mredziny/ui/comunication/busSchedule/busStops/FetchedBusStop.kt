@@ -1,7 +1,7 @@
 package ms.mredziny.ui.comunication.busSchedule.busStops
 
 import com.google.android.gms.maps.model.LatLng
-import ms.mredziny.data.db.Comunication.TransportType
+import ms.mredziny.data.db.Communication.TransportType
 
 data class FetchedBusStop(
     val id: Int,

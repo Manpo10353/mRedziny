@@ -1,4 +1,4 @@
-package ms.mredziny.data.db.Comunication
+package ms.mredziny.data.db.Communication
 
 data class TimeT(
     val minute: Int,

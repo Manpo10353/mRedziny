@@ -9,28 +9,28 @@ import ms.mredziny.data.db.WasteManagment.Place
 import ms.mredziny.data.db.WasteManagment.Street
 import ms.mredziny.data.db.WasteManagment.WasteCollectionSchedule
 import ms.mredziny.data.db.WasteManagment.WasteCollectionScheduleConverter
-import ms.mredziny.data.db.Comunication.Direction
-import ms.mredziny.data.db.Comunication.DirectionConverter
-import ms.mredziny.data.db.Comunication.BusStop
-import ms.mredziny.data.db.Comunication.BusStopSchedule
-import ms.mredziny.data.db.Comunication.BusLine
-import ms.mredziny.data.db.Comunication.City
-import ms.mredziny.data.db.Comunication.DayType
-import ms.mredziny.data.db.Comunication.LatLngTypeConverter
-import ms.mredziny.data.db.Comunication.Schedule
-import ms.mredziny.data.db.Comunication.TransportTypeConverter
-import ms.mredziny.data.db.Comunication.ScheduleConverter
-import ms.mredziny.data.db.Comunication.PairConverter
+import ms.mredziny.data.db.Communication.Direction
+import ms.mredziny.data.db.Communication.DirectionConverter
+import ms.mredziny.data.db.Communication.BusStop
+import ms.mredziny.data.db.Communication.BusStopSchedule
+import ms.mredziny.data.db.Communication.BusLine
+import ms.mredziny.data.db.Communication.City
+import ms.mredziny.data.db.Communication.DayType
+import ms.mredziny.data.db.Communication.LatLngTypeConverter
+import ms.mredziny.data.db.Communication.Schedule
+import ms.mredziny.data.db.Communication.TransportTypeConverter
+import ms.mredziny.data.db.Communication.ScheduleConverter
+import ms.mredziny.data.db.Communication.PairConverter
 import ms.mredziny.data.db.WasteManagment.Date
 import ms.mredziny.data.db.WasteManagment.WasteSchedule
-import java.io.FileOutputStream
-import java.io.IOException
+import ms.mredziny.data.news.NewsDao
+import ms.mredziny.data.news.NewsItem
 
 
 @Database(
     entities = [Direction::class, BusStop::class, City::class, BusLine::class, BusStopSchedule::class, DayType::class, Schedule::class,
-                WasteCollectionSchedule::class, Place::class, Street::class,WasteSchedule::class, Date::class],
-                version = 1, exportSchema = true)
+                WasteCollectionSchedule::class, Place::class, Street::class,WasteSchedule::class, Date::class, NewsItem::class],
+                version = 2, exportSchema = true)
 @TypeConverters(
     TransportTypeConverter::class,
     ScheduleConverter::class,
@@ -50,6 +50,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun scheduleDao(): ScheduleDao
     abstract fun WasteCollectionScheduleDao(): WasteCollectionScheduleDao
 
+    abstract fun newsDao(): NewsDao
+
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
@@ -61,7 +63,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    //.fallbackToDestructiveMigration()//ostrożnie, zawsze sprawdzić czy nie da się inaczej
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance

@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId = "ms.mredziny"
-        minSdk = 24
+        minSdk = 26
         //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.play.services.maps)
     implementation(libs.play.services.location)
     implementation(libs.accompanist.permissions)
@@ -79,6 +80,8 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.jackson.databind)
     implementation(libs.google.services)
+    implementation(libs.jsoup)
+    implementation(libs.coil.compose)
 
     ksp(libs.androidx.room.compiler)
     ksp(libs.hilt.android.compiler)

@@ -1,30 +1,25 @@
 package ms.mredziny.ui
 
-import androidx.compose.animation.AnimatedVisibility
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -34,50 +29,84 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import ms.mredziny.R
-import ms.mredziny.Screen
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Engineering
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.AsyncImage
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
+import ms.mredziny.data.news.NewsItem
+import ms.mredziny.viewModel.NewsViewModel
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun MainScreen(navController: NavController) {
+    val context = LocalContext.current
     val showDialogNotWorkingYet = remember { mutableStateOf(false) }
+    val newsViewModel: NewsViewModel = hiltViewModel()
+    val latestNews by newsViewModel.latestNews.collectAsState()
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(8.dp)
-                    .verticalScroll(rememberScrollState()),
+                    .verticalScroll(rememberScrollState())
+                    .background(MaterialTheme.colorScheme.surface),
                 verticalArrangement = Arrangement.Top,
                 horizontalAlignment = Alignment.CenterHorizontally,
 
             ){
-                MainTile(navController, showDialogNotWorkingYet, communicationTilesList,MaterialTheme.colorScheme.secondary, MaterialTheme.colorScheme.secondaryContainer )
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    text = "Aktualności",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Start
+                )
+                NewsCard(
+                    news = latestNews,
+                    onClick = {
+                        latestNews?.originalUrl?.let { url ->
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            context.startActivity(intent)
+                        }
+                    }
+                )
+                MainTile(navController, showDialogNotWorkingYet, communicationTilesList,)
                 Spacer(modifier = Modifier.size(8.dp))
-                MainTile(navController,showDialogNotWorkingYet, wasteManagementTilesList, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.tertiaryContainer)
+                MainTile(navController,showDialogNotWorkingYet, wasteManagementTilesList, )
                 Spacer(modifier = Modifier.size(8.dp))
-                MainTile(navController,showDialogNotWorkingYet, mCommuneOfficeTilesList, MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.primaryContainer)
+                MainTile(navController,showDialogNotWorkingYet, mCommuneOfficeTilesList, )
                 Spacer(modifier = Modifier.size(8.dp))
-                MainTile(navController,showDialogNotWorkingYet,tourismTilesList, MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.primaryContainer)
+                MainTile(navController,showDialogNotWorkingYet,tourismTilesList)
                 NotWorkingYetDialog(showDialogNotWorkingYet)
             }
         }
 
 @Composable
-fun MainTile(navController: NavController, showDialogNotWorkingYet: MutableState<Boolean>, tileList: TileList,tintColor: Color,backgroundColor: Color) {
-    val showAdditionalTiles = remember { mutableStateOf(false) }
+fun MainTile(navController: NavController, showDialogNotWorkingYet: MutableState<Boolean>, tileList: TileList) {
 
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(MaterialTheme.shapes.medium)
-            .background(color = backgroundColor)
             .padding(8.dp)
+            .background(MaterialTheme.colorScheme.surface)
     ) {
         Column(
             modifier = Modifier
@@ -85,160 +114,89 @@ fun MainTile(navController: NavController, showDialogNotWorkingYet: MutableState
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 text = tileList.title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
-                textAlign = TextAlign.Center
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary,
+                textAlign = TextAlign.Start
             )
             Spacer(modifier = Modifier.size(8.dp))
-            Row(
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(IntrinsicSize.Min)
-                    .align(Alignment.CenterHorizontally),
-                horizontalArrangement = Arrangement.SpaceBetween
-
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Tile(
-                    tileList.tiles[0],
-                    tintColor,
-                    showDialogNotWorkingYet,
-                    Modifier.weight(1f),
-                    navController,
+                tileList.tiles.chunked(2).forEach { rowTiles ->
 
-                    )
-                Spacer(modifier = Modifier.size(8.dp))
-                Tile(
-                    tileList.tiles[1],
-                    tintColor,
-                    showDialogNotWorkingYet,
-                    Modifier.weight(1f),
-                    navController,
-                )
-            }
-            if(showAdditionalTiles.value){
-                Spacer(modifier = Modifier.size(8.dp))
-            }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(IntrinsicSize.Max),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        rowTiles.forEach { tile ->
 
-                AnimatedVisibility(visible = showAdditionalTiles.value) {
-                    Column {
-                    for (i in 2 until tileList.tiles.size step 2) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(IntrinsicSize.Min)
-                                .align(Alignment.CenterHorizontally),
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
                             Tile(
-                                tileList.tiles[i],
-                                tintColor,
-                                showDialogNotWorkingYet,
-                                Modifier
-                                    .weight(1f)
-                                    .fillMaxHeight(),
-                                navController,
-
-                            )
-                            Spacer(modifier = Modifier.size(8.dp))
-                            if (i + 1 < tileList.tiles.size) {
-                                Tile(
-                                    tileList.tiles[i + 1],
-                                    tintColor,
-                                    showDialogNotWorkingYet,
+                                tileData = tile,
+                                showDialog = showDialogNotWorkingYet,
+                                modifier = if (rowTiles.size == 1) {
+                                    Modifier.fillMaxWidth()
+                                } else {
                                     Modifier
                                         .weight(1f)
-                                        .fillMaxHeight(),
-                                    navController,
-                                )
-                            } else {
-                                Spacer(modifier = Modifier.weight(1f))
-                            }
+                                        .fillMaxHeight()
+                                },
+                                navController = navController
+                            )
                         }
-                        Spacer(modifier = Modifier.size(8.dp))
                     }
                 }
             }
-            Spacer(modifier = Modifier.size(8.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterHorizontally),
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-                if(tileList.tiles.size>2) {
-                    ExpandTile(
-                        Modifier.weight(1f),
-                        showAdditionalTiles,
-                        tintColor
-                    )
-                }
-            }
         }
     }
 }
+
+
 @Composable
-fun ExpandTile(modifier: Modifier = Modifier, showAdditionalTiles: MutableState<Boolean> , tintColor: Color) {
-    TextButton(
+fun Tile(tileData: TileData, showDialog: MutableState<Boolean>,modifier: Modifier = Modifier,navController: NavController? = null) {
+    ElevatedButton(
         modifier = modifier
-            .clip(shape = MaterialTheme.shapes.large)
-            .background(color = MaterialTheme.colorScheme.background)
-            .fillMaxWidth(),
-
-        onClick = { showAdditionalTiles.value = !showAdditionalTiles.value })
-    {
-        Column(
-            modifier = Modifier,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-        ){
-            Icon(
-                modifier = Modifier.size(40.dp),
-                painter = painterResource(id = if (showAdditionalTiles.value) R.drawable.keyboard_double_arrow_up_48px else R.drawable.keyboard_double_arrow_down_48px),
-                contentDescription = "Rozwiń",
-                tint = tintColor
-            )
-        }
-    }
-}
-
-@Composable
-fun Tile(tileData: TileData, tintColor: Color, showDialog: MutableState<Boolean>,modifier: Modifier = Modifier,navController: NavController? = null) {
-  TextButton(
-      modifier = modifier
-          .clip(shape = MaterialTheme.shapes.large)
-          .background(color = MaterialTheme.colorScheme.background)
-          //.border(2.dp, MaterialTheme.colorScheme.primary, shape = MaterialTheme.shapes.large)
-          .fillMaxWidth()
-          .padding(1.dp),
-      onClick = {
-          if (tileData.route == null) {
-              showDialog.value = true
-          } else {
-              navController?.navigate(tileData.route)
+            .fillMaxWidth()
+            .heightIn(min = 120.dp),
+        shape = RoundedCornerShape(16.dp),
+        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+        colors = ButtonDefaults.elevatedButtonColors(
+            containerColor = MaterialTheme.colorScheme.background
+        ),
+        onClick = {
+            if (tileData.route == null) {
+                showDialog.value = true
+            } else {
+                navController?.navigate(tileData.route)
+            }
+        }) {
+          Column(
+              horizontalAlignment = Alignment.CenterHorizontally,
+              verticalArrangement = Arrangement.Center,
+          ){
+              Icon(
+                  modifier = Modifier
+                      .size(40.dp),
+                  imageVector = tileData.icon,
+                  contentDescription = tileData.title,
+              )
+              Spacer(modifier = Modifier.size(4.dp))
+              Text(
+                  text = tileData.title,
+                  textAlign = TextAlign.Center,
+                  style = MaterialTheme.typography.bodyLarge,
+                  color = MaterialTheme.colorScheme.primary,
+                  softWrap = true
+              )
           }
-      }) {
-        Column(
-            modifier = Modifier,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-        ){
-            Icon(
-                modifier = Modifier.size(40.dp),
-                painter = painterResource(id=tileData.icon),
-                contentDescription = tileData.title,
-                tint = tintColor
-            )
-            Spacer(modifier = Modifier.size(4.dp))
-            Text(
-                text = tileData.title,
-                textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyMedium,
-                color = tintColor
-            )
-        }
-    }
+      }
 }
 
 @Composable
@@ -248,7 +206,7 @@ fun NotWorkingYetDialog(
     if (showDialog.value) {
         AlertDialog(
             icon = {
-                Icon(painterResource(id = R.drawable.engineering_48px), contentDescription = "Trwają prace")
+                Icon(imageVector = Icons.Outlined.Engineering, contentDescription = "Trwają prace")
             },
             text = {
                 Text(
@@ -271,6 +229,56 @@ fun NotWorkingYetDialog(
         )
     }
 }
+
+@Composable
+fun NewsCard(
+    news: NewsItem?,
+    onClick: () -> Unit
+) {
+    Card(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp, vertical = 8.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.background
+        )
+    ) {
+        Column {
+            if (news != null) {
+                if (news.imageUrl.isNotBlank()) {
+                    AsyncImage(
+                        model = news.imageUrl,
+                        contentDescription = news.title,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(160.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = news.title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(12.dp),
+                    maxLines = 2
+                )
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            }
+        }
+    }
+}
+
 
 @Preview(showBackground = true)
 @Composable

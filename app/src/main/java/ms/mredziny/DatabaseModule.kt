@@ -9,13 +9,14 @@ import dagger.hilt.components.SingletonComponent
 import ms.mredziny.data.db.AppDatabase
 import ms.mredziny.data.db.BusLineDao
 import ms.mredziny.data.db.BusStopDao
-import ms.mredziny.data.db.Comunication.BusStopRepository
+import ms.mredziny.data.db.Communication.BusStopRepository
 import ms.mredziny.data.db.BusStopScheduleDao
 import ms.mredziny.data.db.CityDao
 import ms.mredziny.data.db.DayTypeDao
 import ms.mredziny.data.db.DirectionDao
 import ms.mredziny.data.db.ScheduleDao
 import ms.mredziny.data.db.WasteCollectionScheduleDao
+import ms.mredziny.data.news.NewsDao
 import javax.inject.Singleton
 
 @Module
@@ -71,5 +72,10 @@ object DatabaseModule {
     @Provides
     fun provideWasteCollectionScheduleDao(db: AppDatabase): WasteCollectionScheduleDao {
         return db.WasteCollectionScheduleDao()
+    }
+
+    @Provides
+    fun provideNewsDao(db: AppDatabase): NewsDao {
+        return db.newsDao()
     }
 }
