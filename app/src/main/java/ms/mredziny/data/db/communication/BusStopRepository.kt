@@ -1,4 +1,4 @@
-package ms.mredziny.data.db.Communication
+package ms.mredziny.data.db.communication
 
 import com.google.android.gms.maps.model.LatLng
 import ms.mredziny.data.db.BusLineDao
@@ -25,8 +25,8 @@ class BusStopRepository @Inject constructor(
             return busStopDao.getAllBusStops()
         }
 
-    suspend fun getBusStopByNameAndDirection(name: String, direction: String): List<BusStop> {
-            return busStopDao.getBusStopByNameAndDirection(name, direction)
+    suspend fun getBusStopByNameAndDirection(name: String, directionId: Int): List<BusStop> {
+            return busStopDao.getBusStopByNameAndDirection(name, directionId)
         }
 
     suspend fun updateFavourite(busStopId: Int, favourite: Boolean) {
@@ -90,7 +90,7 @@ class BusStopRepository @Inject constructor(
     suspend fun getBusStopSchedule(busStopId: Int, dayTypeId: Int): List<BusStopSchedule> {
             return busStopScheduleDao.getBusStopSchedule(busStopId, dayTypeId)
         }
-    suspend fun getBusStopSchedule(busStopId: Int, dayTypeId: Int, busLineId: Int): Int {
+    suspend fun getBusStopSchedule(busStopId: Int, dayTypeId: Int, busLineId: Int): Int? {
             return busStopScheduleDao.getBusStopSchedule(busStopId, dayTypeId, busLineId)
         }
     suspend fun getBusStopSchedule(busStopId: Int, dayTypeId: Int, busLineId: Int, scheduleId: Int): List<BusStopSchedule> {
@@ -108,7 +108,7 @@ class BusStopRepository @Inject constructor(
     suspend fun getDayTypeById(dayTypeId: Int): DayType? {
             return dayTypeDao.getDayTypeById(dayTypeId)
         }
-    suspend fun getScheduleById(scheduleId: Int): Schedule {
+    suspend fun getScheduleById(scheduleId: Int): Schedule? {
             return scheduleDao.getScheduleById(scheduleId)
         }
     suspend fun getAllDayTypes(): List<DayType> {

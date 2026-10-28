@@ -1,4 +1,4 @@
-package ms.mredziny.data.db.Communication
+package ms.mredziny.data.db.communication
 
 import androidx.room.TypeConverter
 import com.google.android.gms.maps.model.LatLng

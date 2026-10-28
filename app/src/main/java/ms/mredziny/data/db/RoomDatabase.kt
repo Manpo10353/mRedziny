@@ -5,24 +5,22 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import ms.mredziny.data.db.WasteManagment.Place
-import ms.mredziny.data.db.WasteManagment.Street
-import ms.mredziny.data.db.WasteManagment.WasteCollectionSchedule
-import ms.mredziny.data.db.WasteManagment.WasteCollectionScheduleConverter
-import ms.mredziny.data.db.Communication.Direction
-import ms.mredziny.data.db.Communication.DirectionConverter
-import ms.mredziny.data.db.Communication.BusStop
-import ms.mredziny.data.db.Communication.BusStopSchedule
-import ms.mredziny.data.db.Communication.BusLine
-import ms.mredziny.data.db.Communication.City
-import ms.mredziny.data.db.Communication.DayType
-import ms.mredziny.data.db.Communication.LatLngTypeConverter
-import ms.mredziny.data.db.Communication.Schedule
-import ms.mredziny.data.db.Communication.TransportTypeConverter
-import ms.mredziny.data.db.Communication.ScheduleConverter
-import ms.mredziny.data.db.Communication.PairConverter
-import ms.mredziny.data.db.WasteManagment.Date
-import ms.mredziny.data.db.WasteManagment.WasteSchedule
+import ms.mredziny.data.db.wastemanagement.Place
+import ms.mredziny.data.db.wastemanagement.Street
+import ms.mredziny.data.db.wastemanagement.WasteCollectionSchedule
+import ms.mredziny.data.db.wastemanagement.WasteCollectionScheduleConverter
+import ms.mredziny.data.db.communication.Direction
+import ms.mredziny.data.db.communication.BusStop
+import ms.mredziny.data.db.communication.BusStopSchedule
+import ms.mredziny.data.db.communication.BusLine
+import ms.mredziny.data.db.communication.City
+import ms.mredziny.data.db.communication.DayType
+import ms.mredziny.data.db.communication.LatLngTypeConverter
+import ms.mredziny.data.db.communication.Schedule
+import ms.mredziny.data.db.communication.TransportTypeConverter
+import ms.mredziny.data.db.communication.ScheduleConverter
+import ms.mredziny.data.db.wastemanagement.Date
+import ms.mredziny.data.db.wastemanagement.WasteSchedule
 import ms.mredziny.data.news.NewsDao
 import ms.mredziny.data.news.NewsItem
 
@@ -34,8 +32,6 @@ import ms.mredziny.data.news.NewsItem
 @TypeConverters(
     TransportTypeConverter::class,
     ScheduleConverter::class,
-    PairConverter::class,
-    DirectionConverter::class,
     WasteCollectionScheduleConverter::class,
     LatLngTypeConverter::class
 )

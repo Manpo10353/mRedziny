@@ -1,4 +1,4 @@
-package ms.mredziny.data.db.WasteManagment
+package ms.mredziny.data.db.wastemanagement
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

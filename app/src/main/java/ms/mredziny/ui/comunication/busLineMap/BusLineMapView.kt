@@ -20,7 +20,7 @@ import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import ms.mredziny.R
-import ms.mredziny.data.db.Communication.BusStop
+import ms.mredziny.data.db.communication.BusStop
 import ms.mredziny.viewModel.BusLineMapViewModel
 
 @Composable

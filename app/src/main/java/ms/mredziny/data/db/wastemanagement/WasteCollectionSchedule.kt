@@ -1,9 +1,8 @@
-package ms.mredziny.data.db.WasteManagment
+package ms.mredziny.data.db.wastemanagement
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
 
 @Entity(foreignKeys =
 [

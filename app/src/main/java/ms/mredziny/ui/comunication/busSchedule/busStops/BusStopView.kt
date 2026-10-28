@@ -39,7 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import ms.mredziny.data.db.Communication.TransportType
+import ms.mredziny.data.db.communication.TransportType
 import ms.mredziny.viewModel.BusStopViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

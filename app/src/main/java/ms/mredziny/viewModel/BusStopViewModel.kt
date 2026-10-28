@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ms.mredziny.data.db.Communication.BusStopRepository
+import ms.mredziny.data.db.communication.BusStopRepository
 import ms.mredziny.ui.comunication.busSchedule.busStops.BusStopUiState
 import ms.mredziny.ui.comunication.busSchedule.busStops.FetchedBusStop
 import javax.inject.Inject

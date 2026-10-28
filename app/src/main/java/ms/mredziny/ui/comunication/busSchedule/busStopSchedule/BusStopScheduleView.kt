@@ -41,7 +41,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import ms.mredziny.data.db.Communication.Schedule
+import ms.mredziny.data.db.communication.Schedule
+import ms.mredziny.data.db.communication.TimeT
 import ms.mredziny.viewModel.BusStopScheduleViewModel
 
 
@@ -132,7 +133,7 @@ fun BusStopScheduleView(viewModel: BusStopScheduleViewModel, navController: NavH
                             },
                             modifier = Modifier
                                 .weight(1f)
-                                .fillMaxHeight() // Set to fill the height of the parent
+                                .fillMaxHeight()
                                 .padding(top = 8.dp)
                                 .border(
                                     2.dp,
@@ -158,7 +159,7 @@ fun BusStopScheduleView(viewModel: BusStopScheduleViewModel, navController: NavH
                             onClick = { },
                             modifier = Modifier
                                 .weight(1f)
-                                .fillMaxHeight() // Set to fill the height of the parent
+                                .fillMaxHeight()
                                 .padding(top = 8.dp)
                                 .border(
                                     2.dp,
@@ -260,7 +261,6 @@ fun DayTypeButton(viewModel: BusStopScheduleViewModel, uiState: BusStopScheduleU
         is BusStopScheduleUiState.Error -> uiState.dayType == dayType
         is BusStopScheduleUiState.Loading -> uiState.dayType == dayType
         is BusStopScheduleUiState.Idle -> uiState.dayType == dayType
-        else -> false
     }
 
     TextButton(
@@ -348,7 +348,7 @@ fun TimeColumn(hour: Int, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun PairColumn(pairs: List<Pair<Int, String>>, modifier: Modifier = Modifier) {
+fun PairColumn(pairs: List<TimeT>, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .height(32.dp)
@@ -363,9 +363,9 @@ fun PairColumn(pairs: List<Pair<Int, String>>, modifier: Modifier = Modifier) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(" ")
-            pairs.forEachIndexed { index, (value, text) ->
+            pairs.forEachIndexed { index, time ->
                 Text(
-                    text = "${value.toString().padStart(2, '0')}$text",
+                    text = "${time.minute.toString().padStart(2, '0')}${time.annotation}",
                     style = TextStyle(fontSize = 20.sp),
                     modifier = Modifier
                         .padding(
@@ -382,15 +382,11 @@ fun PairColumn(pairs: List<Pair<Int, String>>, modifier: Modifier = Modifier) {
 
 @Composable
 fun BusType(viewModel: BusStopScheduleViewModel, uiState: BusStopScheduleUiState, busLine: Int){ //moze busline type do zrobienia, ale na rzei niech bęzie na stringu
-    val currentState = uiState
-
-    val isCurrentBusLine = when (currentState) {
-        is BusStopScheduleUiState.Success -> currentState.busLine == busLine
-        is BusStopScheduleUiState.Error -> currentState.busLine == busLine
-        is BusStopScheduleUiState.Loading -> currentState.busLine == busLine
-        is BusStopScheduleUiState.Idle -> currentState.busLine == busLine
-
-        else -> false
+    val isCurrentBusLine = when (uiState) {
+        is BusStopScheduleUiState.Success -> uiState.busLine == busLine
+        is BusStopScheduleUiState.Error -> uiState.busLine == busLine
+        is BusStopScheduleUiState.Loading -> uiState.busLine == busLine
+        is BusStopScheduleUiState.Idle -> uiState.busLine == busLine
     }
     Log.d("BusStopScheduleViewModel", "isCurrentBusLine: $isCurrentBusLine")
 
@@ -426,7 +422,7 @@ fun BusType(viewModel: BusStopScheduleViewModel, uiState: BusStopScheduleUiState
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun BusScheduleScreenPreview() {
-    MyLazyVerticalGrid(Schedule(1, 1, mapOf(1 to listOf(1 to "Test"))))
+    MyLazyVerticalGrid(Schedule(1, 1, mapOf(1 to listOf(TimeT(1, "Test")))))
 }
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

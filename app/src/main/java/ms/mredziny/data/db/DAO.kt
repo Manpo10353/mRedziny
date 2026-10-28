@@ -5,18 +5,18 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.google.android.gms.maps.model.LatLng
-import ms.mredziny.data.db.Communication.BusLine
-import ms.mredziny.data.db.Communication.BusStop
-import ms.mredziny.data.db.Communication.BusStopSchedule
-import ms.mredziny.data.db.Communication.City
-import ms.mredziny.data.db.Communication.DayType
-import ms.mredziny.data.db.Communication.Direction
-import ms.mredziny.data.db.Communication.Schedule
-import ms.mredziny.data.db.WasteManagment.Date
-import ms.mredziny.data.db.WasteManagment.Place
-import ms.mredziny.data.db.WasteManagment.Street
-import ms.mredziny.data.db.WasteManagment.WasteCollectionSchedule
-import ms.mredziny.data.db.WasteManagment.WasteSchedule
+import ms.mredziny.data.db.communication.BusLine
+import ms.mredziny.data.db.communication.BusStop
+import ms.mredziny.data.db.communication.BusStopSchedule
+import ms.mredziny.data.db.communication.City
+import ms.mredziny.data.db.communication.DayType
+import ms.mredziny.data.db.communication.Direction
+import ms.mredziny.data.db.communication.Schedule
+import ms.mredziny.data.db.wastemanagement.Date
+import ms.mredziny.data.db.wastemanagement.Place
+import ms.mredziny.data.db.wastemanagement.Street
+import ms.mredziny.data.db.wastemanagement.WasteCollectionSchedule
+import ms.mredziny.data.db.wastemanagement.WasteSchedule
 
 @Dao
 interface BusStopDao {
@@ -24,8 +24,8 @@ interface BusStopDao {
     @Query("SELECT * FROM busstop")
     suspend fun getAllBusStops(): List<BusStop>
 
-    @Query("SELECT * FROM busstop WHERE busStopName LIKE :name AND directionId = :direction")
-    suspend fun getBusStopByNameAndDirection(name: String, direction: String): List<BusStop>
+    @Query("SELECT * FROM busstop WHERE busStopName LIKE :name AND directionId = :directionId")
+    suspend fun getBusStopByNameAndDirection(name: String, directionId: Int): List<BusStop>
     //i wont be using this function, because i will search busStops by name in domain layer
 
     @Query("SELECT * FROM busstop WHERE directionId = :directionId")
@@ -81,7 +81,7 @@ interface BusStopScheduleDao {
     suspend fun getBusStopSchedule(busStopId: Int, dayTypeId: Int): List<BusStopSchedule>
 
     @Query("SELECT scheduleId FROM busStopSchedules WHERE busStopId = :busStopId AND dayTypeId = :dayTypeId AND busLineId = :busLineId")
-    suspend fun getBusStopSchedule(busStopId: Int, dayTypeId: Int, busLineId: Int): Int
+    suspend fun getBusStopSchedule(busStopId: Int, dayTypeId: Int, busLineId: Int): Int?
 
     @Query("SELECT * FROM busStopSchedules WHERE busStopId = :busStopId AND dayTypeId = :dayTypeId AND busLineId = :busLineId AND scheduleId = :scheduleId")
     suspend fun getBusStopSchedule(busStopId: Int, dayTypeId: Int, busLineId: Int, scheduleId: Int): List<BusStopSchedule>
@@ -103,8 +103,8 @@ interface ScheduleDao {
     @Query("SELECT * FROM schedule")
     suspend fun getAllSchedules(): List<Schedule>
 
-    @Query("SELECT * FROM schedule WHERE id IN (:id)")
-    suspend fun getScheduleById(id: Int): Schedule
+    @Query("SELECT * FROM schedule WHERE id = :id LIMIT 1")
+    suspend fun getScheduleById(id: Int): Schedule?
 
 }
 

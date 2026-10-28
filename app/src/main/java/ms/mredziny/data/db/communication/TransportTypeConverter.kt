@@ -1,4 +1,4 @@
-package ms.mredziny.data.db.Communication
+package ms.mredziny.data.db.communication
 
 import androidx.room.TypeConverter
 
@@ -11,6 +11,10 @@ class TransportTypeConverter {
 
     @TypeConverter
     fun toTransportTypeList(data: String?): List<TransportType>? {
-        return data?.split(",")?.map { TransportType.valueOf(it) }
+        if (data == null) return null
+        if (data.isBlank()) return emptyList()
+        return data.split(",").mapNotNull { name ->
+            runCatching { TransportType.valueOf(name.trim()) }.getOrNull()
+        }
     }
 }

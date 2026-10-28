@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.MRędziny" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.MRedziny" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:colorControlNormal">@color/colorControlNormal</item>
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <item name="android:windowActionBarOverlay">true</item>

@@ -1,7 +1,7 @@
 package ms.mredziny.ui.comunication.busLineMap
 
 import com.google.android.gms.maps.model.LatLng
-import ms.mredziny.data.db.Communication.BusStop
+import ms.mredziny.data.db.communication.BusStop
 
 sealed class BusLineMapUiState {
     data class Idle(

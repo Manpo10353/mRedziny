@@ -44,8 +44,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import ms.mredziny.data.db.WasteManagment.Date
-import ms.mredziny.data.db.WasteManagment.Place
+import ms.mredziny.data.db.wastemanagement.Date
+import ms.mredziny.data.db.wastemanagement.Place
 import ms.mredziny.viewModel.WasteCollectionScheduleViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,11 +1,11 @@
-package ms.mredziny.data.db.Communication
+package ms.mredziny.data.db.communication
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "busline")
-data class BusLine(
+@Entity(tableName = "city")
+data class City(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val name: String
+    val cityName: String
 )

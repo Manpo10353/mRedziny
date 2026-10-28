@@ -1,11 +1,7 @@
 package ms.mredziny.ui.wasteManagment.wasteCollectionSchedule
 
-import ms.mredziny.Screen
-import ms.mredziny.data.db.WasteManagment.Date
-import ms.mredziny.data.db.WasteManagment.Place
-import ms.mredziny.data.db.WasteManagment.Street
-import java.time.Month
-import java.time.Year
+import ms.mredziny.data.db.wastemanagement.Date
+import ms.mredziny.data.db.wastemanagement.Place
 
 sealed class WasteCollectionScheduleUiState{
     data class Idle(

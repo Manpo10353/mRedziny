@@ -1,4 +1,4 @@
-package ms.mredziny.data.db.WasteManagment
+package ms.mredziny.data.db.wastemanagement
 import androidx.room.TypeConverter
 import com.google.gson.reflect.TypeToken
 import com.google.gson.*

@@ -7,9 +7,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ms.mredziny.data.db.WasteManagment.Date
-import ms.mredziny.data.db.WasteManagment.Place
-import ms.mredziny.data.db.WasteManagment.WasteCollectionScheduleRepository
+import ms.mredziny.data.db.wastemanagement.Date
+import ms.mredziny.data.db.wastemanagement.Place
+import ms.mredziny.data.db.wastemanagement.WasteCollectionScheduleRepository
 import ms.mredziny.ui.wasteManagment.wasteCollectionSchedule.FetchedStreet
 import ms.mredziny.ui.wasteManagment.wasteCollectionSchedule.WasteCollectionScheduleUiState
 import java.time.LocalDate

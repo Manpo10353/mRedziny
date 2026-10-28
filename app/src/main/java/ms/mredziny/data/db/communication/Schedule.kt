@@ -1,4 +1,4 @@
-package ms.mredziny.data.db.Communication
+package ms.mredziny.data.db.communication
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
@@ -15,10 +15,10 @@ import androidx.room.TypeConverters
         )
     ]
 )
-@TypeConverters(ScheduleConverter::class, PairConverter::class)
+@TypeConverters(ScheduleConverter::class)
 data class Schedule(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val busLineId: Int,
-    val times: Map<Int, List<Pair<Int, String>>>
+    val times: Map<Int, List<TimeT>>
 )

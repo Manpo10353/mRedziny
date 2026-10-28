@@ -1,7 +1,7 @@
 package ms.mredziny.ui.comunication.busSchedule.busStopSchedule
 
 import com.google.android.gms.maps.model.LatLng
-import ms.mredziny.data.db.Communication.Schedule
+import ms.mredziny.data.db.communication.Schedule
 
 sealed class BusStopScheduleUiState {
 

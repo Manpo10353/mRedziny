@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ms.mredziny.data.db.Communication.BusStopRepository
+import ms.mredziny.data.db.communication.BusStopRepository
 import ms.mredziny.ui.comunication.busSchedule.busStopSchedule.BusStopScheduleUiState
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -185,8 +185,30 @@ class BusStopScheduleViewModel @Inject constructor(
             )
             viewModelScope.launch {
                 try {
-                    val busStopSchedule = repository.getBusStopSchedule(busStopId,dayType,busLine)
-                    val busSchedule = repository.getScheduleById(busStopSchedule)
+                    val scheduleId = repository.getBusStopSchedule(busStopId, dayType, busLine)
+                    if (scheduleId == null) {
+                        _uiState.value = BusStopScheduleUiState.Error(
+                            "Brak rozkładu dla wybranych opcji",
+                            direction = direction,
+                            busStopId = busStopId,
+                            busStopName = busStopName,
+                            dayType = dayType,
+                            busLine = busLine
+                        )
+                        return@launch
+                    }
+                    val busSchedule = repository.getScheduleById(scheduleId)
+                    if (busSchedule == null) {
+                        _uiState.value = BusStopScheduleUiState.Error(
+                            "Nie znaleziono rozkładu w bazie",
+                            direction = direction,
+                            busStopId = busStopId,
+                            busStopName = busStopName,
+                            dayType = dayType,
+                            busLine = busLine
+                        )
+                        return@launch
+                    }
                     val location = repository.getBusStopLocation(busStopId)
                     _uiState.value = BusStopScheduleUiState.Success(
                         busSchedule,

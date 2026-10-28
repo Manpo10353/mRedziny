@@ -1,6 +1,5 @@
-package ms.mredziny.data.db.WasteManagment
+package ms.mredziny.data.db.wastemanagement
 
-import android.util.Log
 import ms.mredziny.data.db.WasteCollectionScheduleDao
 import ms.mredziny.ui.wasteManagment.wasteCollectionSchedule.FetchedStreet
 import ms.mredziny.ui.wasteManagment.wasteCollectionSchedule.FetchedWasteCollectionSchedule

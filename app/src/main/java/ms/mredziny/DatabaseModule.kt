@@ -9,7 +9,7 @@ import dagger.hilt.components.SingletonComponent
 import ms.mredziny.data.db.AppDatabase
 import ms.mredziny.data.db.BusLineDao
 import ms.mredziny.data.db.BusStopDao
-import ms.mredziny.data.db.Communication.BusStopRepository
+import ms.mredziny.data.db.communication.BusStopRepository
 import ms.mredziny.data.db.BusStopScheduleDao
 import ms.mredziny.data.db.CityDao
 import ms.mredziny.data.db.DayTypeDao
