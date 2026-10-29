@@ -1,6 +1,9 @@
 package ms.mredziny
 
 import android.util.Log
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
@@ -23,7 +26,22 @@ import ms.mredziny.viewModel.WasteCollectionScheduleViewModel
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.Home.route) {
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Home.route,
+        enterTransition = {
+            slideInHorizontally(initialOffsetX = { fullWidth -> fullWidth }, animationSpec = tween(300))
+        },
+        exitTransition = {
+            slideOutHorizontally(targetOffsetX = { fullWidth -> -fullWidth }, animationSpec = tween(300))
+        },
+        popEnterTransition = {
+            slideInHorizontally(initialOffsetX = { fullWidth -> -fullWidth }, animationSpec = tween(300))
+        },
+        popExitTransition = {
+            slideOutHorizontally(targetOffsetX = { fullWidth -> fullWidth }, animationSpec = tween(300))
+        }
+    ) {
         composable(route = Screen.Home.route) {
             MainScreen(navController)
         }

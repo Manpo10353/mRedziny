@@ -23,11 +23,11 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun BusSchedule(navController: NavHostController) {
-        // A surface container using the 'background' color from the theme
 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.surface)
                     .padding(8.dp),
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally

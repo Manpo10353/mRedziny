@@ -28,7 +28,7 @@ import ms.mredziny.data.news.NewsItem
 @Database(
     entities = [Direction::class, BusStop::class, City::class, BusLine::class, BusStopSchedule::class, DayType::class, Schedule::class,
                 WasteCollectionSchedule::class, Place::class, Street::class,WasteSchedule::class, Date::class, NewsItem::class],
-                version = 2, exportSchema = true)
+                version = 6, exportSchema = true)
 @TypeConverters(
     TransportTypeConverter::class,
     ScheduleConverter::class,
@@ -59,7 +59,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    .fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration(true)
                     .build()
                 INSTANCE = instance
                 instance

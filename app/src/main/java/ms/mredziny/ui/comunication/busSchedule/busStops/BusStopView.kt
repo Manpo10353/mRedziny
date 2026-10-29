@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -23,8 +24,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -42,7 +43,6 @@ import androidx.navigation.NavHostController
 import ms.mredziny.data.db.communication.TransportType
 import ms.mredziny.viewModel.BusStopViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BusStopScreen(navController: NavHostController, viewModel: BusStopViewModel, direction: String) {
     val uiState by viewModel.uiState.collectAsState()
@@ -57,7 +57,8 @@ fun BusStopScreen(navController: NavHostController, viewModel: BusStopViewModel,
     //}
     Column (
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface)
             //.verticalScroll(rememberScrollState())
             .padding(
                 top = 8.dp,
@@ -98,9 +99,9 @@ fun BusStopScreen(navController: NavHostController, viewModel: BusStopViewModel,
                         end = 8.dp),
                     //.clip(MaterialTheme.shapes.medium),
                 singleLine = true,
-                colors = TextFieldDefaults.outlinedTextFieldColors().copy(
-                    focusedIndicatorColor = MaterialTheme.colorScheme.secondary,
-                    unfocusedIndicatorColor = MaterialTheme.colorScheme.secondary,
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.secondary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                     focusedContainerColor = Color.Transparent,
                     unfocusedContainerColor = Color.Transparent,
                     focusedLabelColor = Color.Gray,

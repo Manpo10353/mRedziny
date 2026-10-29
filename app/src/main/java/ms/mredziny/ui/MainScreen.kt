@@ -48,10 +48,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import android.content.Intent
-import android.net.Uri
 import androidx.compose.ui.platform.LocalContext
 import ms.mredziny.data.news.NewsItem
 import ms.mredziny.viewModel.NewsViewModel
+import androidx.core.net.toUri
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
@@ -83,16 +83,16 @@ fun MainScreen(navController: NavController) {
                     news = latestNews,
                     onClick = {
                         latestNews?.originalUrl?.let { url ->
-                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            val intent = Intent(Intent.ACTION_VIEW, url.toUri())
                             context.startActivity(intent)
                         }
                     }
                 )
-                MainTile(navController, showDialogNotWorkingYet, communicationTilesList,)
+                MainTile(navController, showDialogNotWorkingYet, communicationTilesList)
                 Spacer(modifier = Modifier.size(8.dp))
-                MainTile(navController,showDialogNotWorkingYet, wasteManagementTilesList, )
+                MainTile(navController, showDialogNotWorkingYet, wasteManagementTilesList)
                 Spacer(modifier = Modifier.size(8.dp))
-                MainTile(navController,showDialogNotWorkingYet, mCommuneOfficeTilesList, )
+                MainTile(navController, showDialogNotWorkingYet, mCommuneOfficeTilesList)
                 Spacer(modifier = Modifier.size(8.dp))
                 MainTile(navController,showDialogNotWorkingYet,tourismTilesList)
                 NotWorkingYetDialog(showDialogNotWorkingYet)
@@ -284,7 +284,7 @@ fun NewsCard(
 @Composable
 fun NotWorkingYetDialogPreview() {
     val showDialog = remember { mutableStateOf(true) }
-   // NotWorkingYetDialog(showDialog)
+    NotWorkingYetDialog(showDialog)
 }
 
 @Preview(showBackground = true, showSystemUi = true)

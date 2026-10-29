@@ -56,6 +56,7 @@ fun BusStopScheduleView(viewModel: BusStopScheduleViewModel, navController: NavH
     Column (
         modifier = Modifier
             .fillMaxSize()
+            .background(MaterialTheme.colorScheme.surface)
             .padding(8.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
