@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Local credentials used by the Secrets Gradle Plugin.
+**/secrets.properties
