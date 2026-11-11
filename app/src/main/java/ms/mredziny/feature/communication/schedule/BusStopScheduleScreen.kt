@@ -48,12 +48,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import kotlinx.coroutines.delay
 import ms.mredziny.Screen
 import ms.mredziny.data.db.communication.DayType
+import ms.mredziny.model.Coordinates
 import ms.mredziny.model.Schedule
 import ms.mredziny.model.TimeT
 import ms.mredziny.ui.theme.LineR
@@ -61,6 +63,7 @@ import ms.mredziny.ui.theme.LineRL
 import ms.mredziny.ui.theme.LineRk
 import ms.mredziny.ui.theme.LineRm
 import ms.mredziny.ui.theme.LineS
+import ms.mredziny.ui.theme.MredzinyTheme
 import java.time.LocalTime
 
 @Composable
@@ -75,6 +78,29 @@ fun BusStopScheduleScreen(
         viewModel.open(busStopId, busStopName, direction)
     }
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    BusStopScheduleContent(
+        state = state,
+        busStopName = busStopName,
+        direction = direction,
+        onSelectDayType = viewModel::selectDayType,
+        onShowMapClick = { location ->
+            navController.navigate(
+                "${Screen.BusLineMap.route}/${location.latitude},${location.longitude}",
+            )
+        },
+    )
+}
+
+@Composable
+fun BusStopScheduleContent(
+    state: BusStopScheduleUiState,
+    busStopName: String,
+    direction: String,
+    onSelectDayType: (DayType) -> Unit,
+    onShowMapClick: (Coordinates) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     var currentTime by remember { mutableStateOf(LocalTime.now()) }
     var showRouteLegend by remember { mutableStateOf(false) }
 
@@ -91,7 +117,7 @@ fun BusStopScheduleScreen(
     val routeDescriptions = schedule?.routeDescriptions().orEmpty()
 
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.surface,
         contentColor = MaterialTheme.colorScheme.onSurface,
     ) {
@@ -111,8 +137,11 @@ fun BusStopScheduleScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                        .padding(top = 8.dp,
+                            bottom = 8.dp,
+                            start = 16.dp,
+                            end = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(2.dp),
                 ) {
                     Column {
                         Text(
@@ -126,7 +155,7 @@ fun BusStopScheduleScreen(
                             fontWeight = FontWeight.Bold,
                         )
                     }
-                    HorizontalDivider()
+                    //HorizontalDivider()
                     Column {
                         Text(
                             text = "PRZYSTANEK",
@@ -141,11 +170,7 @@ fun BusStopScheduleScreen(
                     }
                     state.location?.let { location ->
                         Button(
-                            onClick = {
-                                navController.navigate(
-                                    "${Screen.BusLineMap.route}/${location.latitude},${location.longitude}",
-                                )
-                            },
+                            onClick = { onShowMapClick(location) },
                             modifier = Modifier.fillMaxWidth(),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.primary,
@@ -157,7 +182,7 @@ fun BusStopScheduleScreen(
                                 contentDescription = null,
                                 modifier = Modifier.size(20.dp),
                             )
-                            Spacer(Modifier.width(8.dp))
+                            //Spacer(Modifier.width(8.dp))
                             Text("Pokaż przystanek na mapie")
                         }
                     }
@@ -167,7 +192,7 @@ fun BusStopScheduleScreen(
             state.request?.let { request ->
                 DayTypeRow(
                     selected = request.dayType,
-                    onSelect = viewModel::selectDayType,
+                    onSelect = onSelectDayType,
                     modifier = Modifier.padding(vertical = 8.dp),
                 )
             }
@@ -292,20 +317,23 @@ private fun NextDepartureCard(departure: ScheduledDeparture?, currentTime: Local
                 Text("Brak kolejnych odjazdów po bieżącej godzinie.")
             }
         } else {
+            Text(
+                text = "NAJBLIŻSZY ODJAZD · WG ROZKŁADU",
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(top=8.dp,
+                    start = 16.dp,
+                    end = 16.dp)
+            )
+            //Spacer(Modifier.height(4.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Column {
-                    Text(
-                        text = "NAJBLIŻSZY ODJAZD · WG ROZKŁADU",
-                        style = MaterialTheme.typography.labelMedium,
-                        fontWeight = FontWeight.Bold,
-                    )
-                    Spacer(Modifier.height(4.dp))
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
                             text = departure.formattedTime,
@@ -324,6 +352,7 @@ private fun NextDepartureCard(departure: ScheduledDeparture?, currentTime: Local
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.End,
                 )
+
             }
         }
     }
@@ -489,3 +518,50 @@ private fun Schedule.routeDescriptions(): List<Pair<String, String>> =
         }
         .distinct()
         .sortedBy { it.first }
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+private fun BusStopScheduleScreenPreview() {
+    val sampleSchedule = Schedule(
+        times = mapOf(
+            6 to listOf(
+                TimeT(minute = 15, annotation = "R", description = "Kurs do Częstochowy przez Rędziny"),
+                TimeT(minute = 45, annotation = "Rk", description = "Kurs skrócony do Kościełca"),
+            ),
+            7 to listOf(
+                TimeT(minute = 10, annotation = "R"),
+                TimeT(minute = 35, annotation = "RL"),
+            ),
+            8 to listOf(
+                TimeT(minute = 20, annotation = "S", description = "Kurs w dni nauki szkolnej"),
+            ),
+            14 to listOf(
+                TimeT(minute = 5, annotation = "Rm"),
+                TimeT(minute = 50, annotation = "R"),
+            ),
+        ),
+    )
+
+    val sampleState = BusStopScheduleUiState(
+        request = ScheduleRequest(
+            stopId = 1L,
+            stopName = "Rędziny Osiedle",
+            direction = "Częstochowa",
+            dayType = DayType.WORKDAY_SCHOOL,
+        ),
+        schedule = sampleSchedule,
+        location = Coordinates(50.827, 19.123),
+        isLoading = false,
+        error = null,
+    )
+
+    MredzinyTheme {
+        BusStopScheduleContent(
+            state = sampleState,
+            busStopName = "Rędziny Osiedle",
+            direction = "Częstochowa",
+            onSelectDayType = {},
+            onShowMapClick = {},
+        )
+    }
+}
